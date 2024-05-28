@@ -1,5 +1,5 @@
 name: Build Project
-on: push
+on: [push, workflow_dispatch]
 env:
   project: spout_gd
 jobs:
