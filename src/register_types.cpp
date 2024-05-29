@@ -5,7 +5,6 @@
 #include "spout_gd.h"
 #include "spout_texture.h"
 #include "spout_viewport.h"
-#include "spout_sender.h"
 
 using namespace godot;
 
@@ -17,7 +16,6 @@ void initialize_spout_gd_module(ModuleInitializationLevel p_level) {
     godot::ClassDB::register_class<Spout>();
     godot::ClassDB::register_class<SpoutTexture>();
     godot::ClassDB::register_class<SpoutViewport>();
-    godot::ClassDB::register_class<SpoutSender>();
 }
 
 void uninitialize_spout_gd_module(ModuleInitializationLevel p_level) {
