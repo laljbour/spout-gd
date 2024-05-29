@@ -22,7 +22,7 @@ class SpoutViewport : public SubViewport {
 
     private:
         Spout *_spout;
-        String _sender_name;
+        bool _spout_update;
 
         void poll_server();
     protected:
@@ -30,10 +30,12 @@ class SpoutViewport : public SubViewport {
         void _notification(int p_what);
     public:
         SpoutViewport();
-        ~SpoutViewport();
 
-        void set_sender_name(String sender_name);
-        String get_sender_name() const;
+        void set_spout(Spout spout);
+        Spout get_spout() const;
+
+        void set_spout_update(bool enabled);
+        bool can_spout_update() const;
 };
 
 #endif  // SPOUT_GD_SPOUT_VIEWPORT_H

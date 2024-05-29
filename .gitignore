@@ -12,3 +12,5 @@
 *.dblite
 out/
 .scons_cache
+
+.vscode/

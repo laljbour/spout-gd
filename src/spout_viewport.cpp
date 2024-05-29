@@ -1,17 +1,28 @@
 #include "spout_viewport.h"
 
 void SpoutViewport::_bind_methods() {
-    ClassDB::bind_method(D_METHOD("set_sender_name", "sender_name"), &SpoutViewport::set_sender_name);
-    ClassDB::bind_method(D_METHOD("get_sender_name"), &SpoutViewport::get_sender_name);
-    ADD_PROPERTY(PropertyInfo(Variant::STRING, "sender_name"), "set_sender_name", "get_sender_name");
+    ClassDB::bind_method(D_METHOD("set_spout", "spout"), &SpoutViewport::set_spout);
+    ClassDB::bind_method(D_METHOD("get_spout"), &SpoutViewport::get_spout);
+    ADD_PROPERTY(PropertyInfo(Variant::OBJECT, "spout"), "set_spout", "get_spout");
+    ClassDB::bind_method(D_METHOD("set_spout_update", "enabled"), &SpoutViewport::set_spout_update);
+    ClassDB::bind_method(D_METHOD("can_spout_update"), &SpoutViewport::can_spout_update);
+    ADD_PROPERTY(PropertyInfo(Variant::BOOL, "spout_update"), "set_spout_update", "can_spout_update");
 }
 
-void SpoutViewport::set_sender_name(String sender_name) {
-    _sender_name = sender_name;
+void SpoutViewport::set_spout(Spout spout) {
+    _spout = spout;
 }
 
-String SpoutViewport::get_sender_name() const {
-    return _sender_name;
+Spout SpoutViewport::get_spout() const {
+    return _spout;
+}
+
+void SpoutViewport::set_spout_update(bool enabled) {
+    _spout_update = enabled;
+}
+
+bool SpoutViewport::can_spout_update() const {
+    return _spout_update;
 }
 
 void SpoutViewport::poll_server() {
@@ -23,9 +34,8 @@ void SpoutViewport::poll_server() {
         return;
     }
 
-    if (_spout->get_sender_name() != _sender_name) {
-        _spout->release_sender();
-        _spout->set_sender_name(_sender_name);
+   if (_spout == NULL || !_spout_update) {
+        return;
     }
 
     auto image = get_texture()->get_image();
@@ -41,8 +51,6 @@ void SpoutViewport::poll_server() {
 
 void SpoutViewport::_notification(int p_what) {
     if (p_what == NOTIFICATION_READY && !Engine::get_singleton()->is_editor_hint()) {
-        _spout = new Spout();
-
         auto _update = callable_mp(this, &SpoutViewport::poll_server);
 
         RenderingServer::get_singleton()->connect(
@@ -50,21 +58,9 @@ void SpoutViewport::_notification(int p_what) {
             _update
         );
     }
-    else if (p_what == NOTIFICATION_PREDELETE) {
-        if (_spout != NULL) {
-            _spout->release_sender();
-        }    
-    }
 }
 
 SpoutViewport::SpoutViewport() {
-    // create a placeholder image for spout
     _spout = NULL;
-    _sender_name = String("");   
-}
-
-SpoutViewport::~SpoutViewport() {
-    if (_spout != NULL) {
-        _spout->release_sender();
-    }
+    _spout_update = false;  
 }
