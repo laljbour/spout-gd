@@ -4,6 +4,7 @@
 #include <godot_cpp/classes/global_constants.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/image.hpp>
+#include <godot_cpp/classes/texture_2d.hpp>
 #include <godot_cpp/classes/node.hpp>
 
 #include <godot_cpp/variant/utility_functions.hpp>
@@ -30,7 +31,7 @@ class SpoutSender : public Node {
         void set_sender_name(String sender_name);
         String get_sender_name() const;
 
-        void send_texture(auto texture, bool transparent_flag);
+        void send_texture(Texture2D texture, bool transparent_flag);
 };
 
 #endif  // SPOUT_GD_SPOUT_SENDER_H

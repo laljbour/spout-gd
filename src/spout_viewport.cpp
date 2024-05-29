@@ -9,11 +9,11 @@ void SpoutViewport::_bind_methods() {
     ADD_PROPERTY(PropertyInfo(Variant::BOOL, "spout_update"), "set_spout_update", "can_spout_update");
 }
 
-void SpoutViewport::set_spout(Spout spout) {
+void SpoutViewport::set_spout(Spout *spout) {
     _spout = spout;
 }
 
-Spout SpoutViewport::get_spout() const {
+Spout *SpoutViewport::get_spout() const {
     return _spout;
 }
 

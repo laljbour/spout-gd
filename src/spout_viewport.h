@@ -31,8 +31,8 @@ class SpoutViewport : public SubViewport {
     public:
         SpoutViewport();
 
-        void set_spout(Spout spout);
-        Spout get_spout() const;
+        void set_spout(Spout *spout);
+        Spout *get_spout() const;
 
         void set_spout_update(bool enabled);
         bool can_spout_update() const;

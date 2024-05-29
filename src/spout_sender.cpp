@@ -14,7 +14,7 @@ String SpoutSender::get_sender_name() const {
     return _sender_name;
 }
 
-void SpoutSender::send_texture(auto texture, bool transparent_flag) {
+void SpoutSender::send_texture(Texture2D texture, bool transparent_flag) {
     if (is_queued_for_deletion()) {
         return;
     }
