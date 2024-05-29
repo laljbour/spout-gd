@@ -4,7 +4,7 @@
 #include <godot_cpp/classes/global_constants.hpp>
 #include <godot_cpp/classes/engine.hpp>
 #include <godot_cpp/classes/image.hpp>
-#include <godot_cpp/classes/texture_2d.hpp>
+#include <godot_cpp/classes/texture.hpp>
 #include <godot_cpp/classes/node.hpp>
 
 #include <godot_cpp/variant/utility_functions.hpp>
